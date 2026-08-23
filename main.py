@@ -103,35 +103,41 @@ def generate_ids(object_type, title= ""):
 
 def display_menu():
     """Function for print the menu"""
-    print(
-        """
-==================================================
-          SCHOOL MANAGEMENT SYSTEM
-==================================================
+    print("""
+============================================================
+                 SCHOOL MANAGEMENT SYSTEM
+============================================================
 
-STUDENTS
-1. Add student
-2. Drop student
-3. Enroll student in course
-4. Unenroll student from course
-5. View student courses
-6. View students
+[ STUDENT MANAGEMENT ]
+  1. Add Student
+  2. Delete Student
+  3. Enroll Student in Course
+  4. Unenroll Student from Course
+  5. View Student Courses
+  6. View All Students
 
-TEACHERS
-7. Add teacher
-8. Drop teacher
-9. View teachers
+[ TEACHER MANAGEMENT ]
+  7. Add Teacher
+  8. Delete Teacher
+  9. View All Teachers
 
-COURSES
-10. Add course
-11. Delete course
-12. View course students
-13. View courses
+[ COURSE MANAGEMENT ]
+ 10. Add Course
+ 11. Delete Course
+ 12. View Course Students
+ 13. View All Courses
 
-0. Save and Exit
-==================================================
-"""
-    )
+------------------------------------------------------------
+  0. Save and Exit
+============================================================""")
+
+
+def print_success(message):
+    print(f"\n[SUCCESS] {message}")
+
+
+def print_error(message):
+    print(f"\n[ERROR] {message}")
 
 
 load_students()
@@ -154,7 +160,7 @@ while True:
                     student = st.Student(student_id, name, age)
                     SCHOOL_OBJECT.add_student(student)
                     save_changes_students()
-                    print(f"Student ID: *{student_id}* was successfully added")
+                    print_success(f"Student {student_id} - {student.name} was added successfully.")
             case "2":
                 SCHOOL_OBJECT.display_students()
                 if SCHOOL_OBJECT.get_students:
@@ -162,7 +168,7 @@ while True:
                     SCHOOL_OBJECT.drop_student(student_id)
                     save_changes_students()
                     save_changes_courses()
-                    print(f"Student ID: *{student_id}* was successfully deleted")
+                    print_success(f"Student {student_id} was deleted successfully.")
             case "3":
                 if SCHOOL_OBJECT.get_courses:
                     SCHOOL_OBJECT.display_students()
@@ -174,7 +180,7 @@ while True:
                             SCHOOL_OBJECT.enroll_student(student_id, course_id)
                             save_changes_students()
                             save_changes_courses()
-                            print(f"Student ID: *{student_id}* was successfully enrolled in Course ID: *{course_id}*")
+                            print_success(f"Student {student_id} was enrolled in course {course_id}.")
                         else:
                             raise ValueError("Course ID not correct")
                     else:
@@ -193,7 +199,7 @@ while True:
                             SCHOOL_OBJECT.unenroll_student(student_id, course_id)
                             save_changes_students()
                             save_changes_courses()
-                            print(f"Student ID: *{student_id}* unenroll from Course ID: *{course_id}*")
+                            print_success(f"Student {student_id} was unenrolled from course {course_id}.")
                         else:
                             raise ValueError("Course not available to this student")
                     else:
@@ -204,7 +210,14 @@ while True:
                     student_id = vd.validate_student_id(input("\nEnter student ID: "))
                     student = SCHOOL_OBJECT.search_student_by_id(student_id)
                     if student.get_enrolled_courses:
-                        print(student.get_enrolled_courses)
+                        courses = ", ".join(student.get_enrolled_courses)
+                        print("\n" + "=" * 60)
+                        print("                 STUDENT COURSES")
+                        print("=" * 60)
+                        print(f"Student ID : {student.student_id}")
+                        print(f"Name       : {student.name}")
+                        print(f"Courses    : {courses}")
+                        print("=" * 60)
                     else:
                         print("Student not enrolled in any courses")
             case "6":
@@ -216,7 +229,7 @@ while True:
                     teacher = tch.Teacher(teacher_id, name)
                     SCHOOL_OBJECT.add_teacher(teacher)
                     save_changes_teachers()
-                    print(f"Teacher ID: *{teacher_id}* was successfully added")
+                    print_success(f"Teacher {teacher_id} was added successfully.")
             case "8":
                 SCHOOL_OBJECT.display_teachers()
                 if SCHOOL_OBJECT.get_teachers:
@@ -225,7 +238,7 @@ while True:
                         SCHOOL_OBJECT.drop_teacher(teacher_id)
                         save_changes_teachers()
                         save_changes_courses()
-                        print(f"Teacher ID: *{teacher_id}* was successfully deleted")
+                        print_success(f"Teacher {teacher_id} was deleted successfully.")
             case "9":
                 SCHOOL_OBJECT.display_teachers()
             case "10":
@@ -242,7 +255,7 @@ while True:
                             SCHOOL_OBJECT.add_course(course)
                             save_changes_courses()
                             save_changes_teachers()
-                            print(f"Course title: *{title}* was successfully added")
+                            print_success(f"Course {course_id} - {title} was added successfully.")
                 else:
                     print("\nThere are no teachers currently")
             case "11":
@@ -256,7 +269,7 @@ while True:
                         save_changes_courses()
                         save_changes_students()
                         save_changes_teachers()
-                        print(f"Course title: *{course.title}* was successfully deleted")
+                        print_success(f"Course {course_id} - {course.title} was deleted successfully.")
             case "12":
                 SCHOOL_OBJECT.display_courses()
                 if SCHOOL_OBJECT.get_courses:
@@ -264,7 +277,18 @@ while True:
                     if course_id:
                         course = SCHOOL_OBJECT.search_course_by_id(course_id)
                         if course.get_enrolled_students:
-                            print(course.get_enrolled_students)
+                            print("\n" + "=" * 60)
+                            print("                 COURSE STUDENTS")
+                            print("=" * 60)
+                            print(f"Course ID : {course.course_id}")
+                            print(f"Title     : {course.title}")
+                            print("Students  :")
+                            for student_id in course.get_enrolled_students:
+                                student = SCHOOL_OBJECT.search_student_by_id(
+                                    student_id
+                                )
+                                print(f"  - {student_id} | {student.name}")
+                            print("=" * 60)
                         else:
                             print("No students in this course")
             case "13":
@@ -278,5 +302,5 @@ while True:
             case _:
                 raise ValueError("Please write valid choice!")
     except Exception as e:
-        print(e)
-        logging_handler.log_error(str(e))      
+        print_error(str(e))
+        logging_handler.log_error(str(e))     
