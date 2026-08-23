@@ -62,7 +62,7 @@ def save_changes_courses():
     file_handler.write_to_json(COURSES_FILE, courses_dict)
 
 
-def generate_ids(object_type):
+def generate_ids(object_type, title= ""):
     """Function for generate IDs to all users"""
     generated_id = ""
     if object_type == "student":
@@ -78,15 +78,14 @@ def generate_ids(object_type):
             return generated_id
     elif object_type == "course":
         courses_dict = SCHOOL_OBJECT.get_courses
+        prefix = title.strip()[:3].upper()
         if courses_dict:
             last_id = list(courses_dict.keys())[-1]
             splited_list = last_id.split("-")
             number = str(int(splited_list[1]) + 1)
-            generated_id = splited_list[0] + "-" + number
+            generated_id = prefix + "-" + number
             return generated_id
-        else:
-            generated_id = "CRS0-1"
-            return generated_id
+        return prefix + "-1"
     elif object_type == "teacher":
         teachers_dict = SCHOOL_OBJECT.get_teachers
         if teachers_dict:
@@ -237,7 +236,7 @@ while True:
                         SCHOOL_OBJECT.display_teachers()
                         teacher_id = vd.validate_teacher_id(input("\nEnter teacher ID: "))
                         if teacher_id:
-                            course_id = generate_ids("course")
+                            course_id = generate_ids("course", title)
                             course = crs.Course(course_id, title, teacher_id)
                             SCHOOL_OBJECT.assign_subjects(teacher_id, course_id)
                             SCHOOL_OBJECT.add_course(course)
