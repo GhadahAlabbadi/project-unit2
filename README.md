@@ -105,5 +105,3 @@ Full project documentation is available in:
 ## Author
 
 **Ghadah Ammar Alabbadi**
-
-Unit 2 Project - School Management System
