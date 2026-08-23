@@ -9,8 +9,7 @@ class Student:
 
     @property
     def get_enrolled_courses(self):
-        if self.enrolled_courses:
-            return self.enrolled_courses
+        return self.enrolled_courses
 
 
     def enroll_to_course(self, course_id):

@@ -46,8 +46,8 @@ class School:
     def unenroll_student(self, student_id, course_id):
         """Method for unenroll specific student from specific course in School"""
         student = self.search_student_by_id(student_id)
-        student.unenroll_to_course(course_id)
         course = self.search_course_by_id(course_id)
+        student.unenroll_to_course(course_id)
         course.remove_student(student_id)
 
         

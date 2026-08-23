@@ -193,7 +193,8 @@ while True:
                     student_id = vd.validate_student_id(input("\nEnter student ID: "))
                     student = SCHOOL_OBJECT.search_student_by_id(student_id)
                     if student.get_enrolled_courses:
-                        print(student.get_enrolled_courses)
+                        courses = ", ".join(student.get_enrolled_courses)
+                        print(f"\nEnrolled Courses: {courses}")
                         course_id = vd.validate_course_id(input("Enter course ID: "))
                         if course_id in student.get_enrolled_courses:
                             SCHOOL_OBJECT.unenroll_student(student_id, course_id)
@@ -223,7 +224,7 @@ while True:
             case "6":
                 SCHOOL_OBJECT.display_students()
             case "7":
-                name = vd.validate_string(input("Enter teacher name: ") )
+                name = vd.validate_string(input("Enter teacher name: "))
                 if name:
                     teacher_id = generate_ids("teacher")
                     teacher = tch.Teacher(teacher_id, name)
