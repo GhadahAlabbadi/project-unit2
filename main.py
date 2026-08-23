@@ -148,7 +148,7 @@ while True:
             case "2":
                 SCHOOL_OBJECT.display_students()
                 if SCHOOL_OBJECT.get_students:
-                    student_id = vd.validate_student_id(input("Enter student ID: "))
+                    student_id = vd.validate_student_id(input("\nEnter student ID: "))
                     SCHOOL_OBJECT.drop_student(student_id)
                     save_changes_students()
                     save_changes_courses()
