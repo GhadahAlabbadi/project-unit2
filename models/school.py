@@ -58,7 +58,7 @@ class School:
             print("=" * 50)
             for student in self.students.values():
                 courses = (", ".join(student.enrolled_courses) if student.enrolled_courses else "No courses enrolled")
-            print(f"ID: {student.student_id}\nName: {student.name}\nAge: {student.age}\nCourses: {courses}\n" + "-" * 50)
+                print(f"ID: {student.student_id}\nName: {student.name}\nAge: {student.age}\nCourses: {courses}\n" + "-" * 50)
         else:
             print("\nThere are no students currently")
 
@@ -97,7 +97,7 @@ class School:
             print("=" * 50)
             for course in self.courses.values():
                 students = (", ".join(course.enrolled_students) if course.enrolled_students else "No students enrolled")
-            print(f"ID: {course.course_id}\nTitle: {course.title}\nTeacher: {course.teacher_id}\nStudents: {students}\n" + "-" * 50)
+                print(f"ID: {course.course_id}\nTitle: {course.title}\nTeacher: {course.teacher_id}\nStudents: {students}\n" + "-" * 50)
         else:
             print("\nThere are no courses currently")
 
@@ -146,6 +146,6 @@ class School:
             print("=" * 50)
             for teacher in self.teachers.values():
                 subjects = (", ".join(teacher.subjects) if teacher.subjects else "No courses assigned")
-            print(f"ID: {teacher.teacher_id}\nName: {teacher.name}\nSubjects: {subjects}\n" + "-" * 50)
+                print(f"ID: {teacher.teacher_id}\nName: {teacher.name}\nSubjects: {subjects}\n" + "-" * 50)
         else:
             print("\nThere are no teachers currently")

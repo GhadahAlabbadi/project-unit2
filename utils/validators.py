@@ -8,13 +8,12 @@ TEACHERS_FILE = "data/teachers.json"
 
 def validate_string(value):
     """Function for validate String input in validators file"""
-    value = value.strip().title()
+    value = " ".join(value.strip().split())
     if not value:
         raise ValueError("Field can't be empty")
-    elif not value.replace(" ", "").isalpha():
-        raise ValueError("Field must be a string")
-    else:
-        return value
+    if not value.replace(" ", "").isalpha():
+        raise ValueError("Field must contain letters only")
+    return value.title()
 
 
 def validate_number(number):
