@@ -104,24 +104,35 @@ def generate_ids(object_type):
 
 def display_menu():
     """Function for print the menu"""
-    print("""\nSCHOOL MANAGEMENT SYSTEM
---Related to Student--
-    1. Add student
-    2. Drop student
-    3. Enroll student
-    4. Unenroll student
-    5. View student courses
-    6. View students
---Related to Teacher--
-    7. Add teacher
-    8. Drop teacher
-    9. View teachers
---Related to Course--
-    10. Add course
-    11. Drop course
-    12. View course students
-    13. View courses
-0. Save and Exit\n""")
+    print(
+        """
+==================================================
+          SCHOOL MANAGEMENT SYSTEM
+==================================================
+
+STUDENTS
+1. Add student
+2. Drop student
+3. Enroll student in course
+4. Unenroll student from course
+5. View student courses
+6. View students
+
+TEACHERS
+7. Add teacher
+8. Drop teacher
+9. View teachers
+
+COURSES
+10. Add course
+11. Delete course
+12. View course students
+13. View courses
+
+0. Save and Exit
+==================================================
+"""
+    )
 
 
 load_students()

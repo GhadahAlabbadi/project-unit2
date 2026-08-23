@@ -53,9 +53,12 @@ class School:
         
     def display_students(self):
         if self.students:
-            for student_id, student in self.students.items():
-                print(f"""\n{student_id} | {student.name} | Age {student.age} 
-Courses: {student.enrolled_courses}""")
+            print("\n" + "=" * 50)
+            print("STUDENTS")
+            print("=" * 50)
+            for student in self.students.values():
+                courses = (", ".join(student.enrolled_courses) if student.enrolled_courses else "No courses enrolled")
+            print(f"ID: {student.student_id}\nName: {student.name}\nAge: {student.age}\nCourses: {courses}\n" + "-" * 50)
         else:
             print("\nThere are no students currently")
 
@@ -89,9 +92,12 @@ Courses: {student.enrolled_courses}""")
              
     def display_courses(self):
         if self.courses:
-            for course_id, course in self.courses.items():
-                print(f"""\n{course_id} | {course.title} 
-Teacher: {course.teacher_id} | Students: {course.enrolled_students}""")
+            print("\n" + "=" * 50)
+            print("COURSES")
+            print("=" * 50)
+            for course in self.courses.values():
+                students = (", ".join(course.enrolled_students) if course.enrolled_students else "No students enrolled")
+            print(f"ID: {course.course_id}\nTitle: {course.title}\nTeacher: {course.teacher_id}\nStudents: {students}\n" + "-" * 50)
         else:
             print("\nThere are no courses currently")
 
@@ -135,8 +141,11 @@ Teacher: {course.teacher_id} | Students: {course.enrolled_students}""")
         
     def display_teachers(self):
         if self.teachers:
-            for teacher_id, teacher in self.teachers.items():
-                print(f"""\n{teacher_id} | {teacher.name} 
-Subjects: {teacher.subjects}""")
+            print("\n" + "=" * 50)
+            print("TEACHERS")
+            print("=" * 50)
+            for teacher in self.teachers.values():
+                subjects = (", ".join(teacher.subjects) if teacher.subjects else "No courses assigned")
+            print(f"ID: {teacher.teacher_id}\nName: {teacher.name}\nSubjects: {subjects}\n" + "-" * 50)
         else:
             print("\nThere are no teachers currently")
